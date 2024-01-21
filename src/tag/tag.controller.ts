@@ -6,7 +6,10 @@ export class TagController {
   constructor(private readonly tagService: TagService) {}
 
   @Get()
-  getListTags(): string[] {
-    return this.tagService.getListTags();
+  async getListTags(): Promise<{ tags: string[] }> {
+    const tags = await this.tagService.getListTags();
+    return {
+      tags: tags.map((tag) => tag.name),
+    };
   }
 }
